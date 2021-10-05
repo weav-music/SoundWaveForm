@@ -120,7 +120,7 @@ public struct SamplesExtractor{
                 var sampleMax:Float = -Float.infinity
 
                 #if os(OSX)
-                let positiveInfinity = kCMTimePositiveInfinity
+                let positiveInfinity = CMTime.positiveInfinity
                 #else
                 let positiveInfinity = CMTime.positiveInfinity
                 #endif
@@ -159,7 +159,7 @@ public struct SamplesExtractor{
                     var readBufferLength = 0
                     #if os(OSX)
                     var readBufferPointer: UnsafeMutablePointer<Int8>?
-                    CMBlockBufferGetDataPointer(readBuffer, 0, &readBufferLength, nil, &readBufferPointer)
+                    CMBlockBufferGetDataPointer(readBuffer, atOffset: 0, lengthAtOffsetOut: &readBufferLength, totalLengthOut: nil, dataPointerOut: &readBufferPointer)
                     sampleBuffer.append(UnsafeBufferPointer(start: readBufferPointer, count: readBufferLength))
                     CMSampleBufferInvalidate(readSampleBuffer)
                     #else
